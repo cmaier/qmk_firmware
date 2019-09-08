@@ -1,14 +1,14 @@
 #include QMK_KEYBOARD_H
 
 enum dz60_layers {
-  _BS, // Base layer
-  _FN, // Function layer
-  _MC, // macOS layer
-  _IJ, // IntelliJ (Android Studio)
-  _GM, // Gaming
-  _FN2, // Function layer
-  _MS, // Windows
-  _KB // Keyboard layer
+  _DEFAULT,
+  _SPACEFN_FUNCTIONS,
+  _MACOS_FUNCTIONS,
+  _INTELLIJ,
+  _GAMING,
+  _GAMING_FUNCTIONS,
+  _GAMING_MEDIA,
+  _KEYBOARD_CONFIG
 };
 
 enum my_keycodes {
@@ -16,103 +16,140 @@ enum my_keycodes {
   BR_DOWN
 };
 
-// Define Macros
-#define M_MCRTL  M(0) // macOS: Mission Control
-#define M_AWNDS  M(1) // macOS: App Windows
-#define M_SWTCH  M(2) // macOS: Switch App Windows
-#define M_ITERM  M(3) // macOS: Remap for iTerm2 Hotkey
-#define M_ADBGR  M(100) // IntelliJ: Attach debugger
-#define M_RNAME  M(101) // IntelliJ: Refactor Rename
-#define M_USAGE  M(102) // IntelliJ: Usage
-#define M_RVARB  M(103) // IntelliJ: Refactor Variable
-#define M_RPROP  M(104) // IntelliJ: Refactor Property
-#define M_RFUNC  M(105) // IntelliJ: Refactor Function
-#define M_RTYAL  M(106) // IntelliJ: Refactor Type Alias
+enum macros {
+    macos_app_switcher,
+    macos_app_windows,
+    macos_iterm2_hotkey,
+    macos_mission_control,
+    intellij_attach_debugger,
+    intellij_refactor_rename,
+    intellij_refactor_property,
+    intellij_refactor_type_alias,
+    intellij_refactor_variable,
+    intellij_refactor_function,
+    intellij_usage
+};
 
+#define KC_IJ MO(_INTELLIJ)
+#define KC_SPACEFN LT(_SPACEFN_FUNCTIONS, KC_SPC)
+#define KC_MAC MO(_MACOS_FUNCTIONS)
+
+#define KC_SWITCHR M(macos_app_switcher)
+#define KC__ KC_TRNS
+
+#define KC_BRDN BR_DOWN
+#define KC_BRUP BR_UP
+#define KC_MCTL M(macos_mission_control)
+#define KC_AWND M(macos_app_windows)
+#define KC_KCFG MO(_KEYBOARD_CONFIG)
+#define KC_TERM M(macos_iterm2_hotkey)
+
+#define KC_RNME M(intellij_refactor_rename)
+#define KC_USGE M(intellij_usage)
+#define KC_RPRP M(intellij_refactor_property)
+#define KC_RTAS M(intellij_refactor_type_alias)
+#define KC_ADBR M(intellij_attach_debugger)
+#define KC_RVAR M(intellij_refactor_variable)
+#define KC_RFUN M(intellij_refactor_function)
+
+#define KC_FUN2 MO(_GAMING_FUNCTIONS)
+#define KC_MCST MO(_GAMING_MEDIA)
+
+#define KC_RESET RESET
+#define KC_CTOG RGB_TOG
+#define KC_CMOD RGB_MOD
+#define KC_CHUI RGB_HUI
+#define KC_CHUD RGB_HUD
+#define KC_CSAI RGB_SAI
+#define KC_CSAD RGB_SAD
+#define KC_CVAI RGB_VAI
+#define KC_CVAD RGB_VAD
+#define KC_BASE TO(_DEFAULT)
+#define KC_GAME TO(_GAMING)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BS] = LAYOUT_all(
-        KC_GESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,  KC_EQL, KC_NO,KC_BSPC,
-        KC_TAB,       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_RBRC,     KC_BSLASH,
-        MO(_IJ),        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,            KC_ENTER,
-        KC_LSFT,    KC_NO,KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_NO,   KC_RSFT,   KC_NO,
-        KC_LCTL, KC_LALT, KC_LGUI,             KC_NO, LT(_FN, KC_SPC), KC_NO,             KC_RGUI,   KC_RALT,   KC_NO,KC_RCTL,     MO(_MC)),
+  [_DEFAULT] = LAYOUT_60_ansi_kc(
+        GESC,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0,MINS,  EQL,    BSPC,
+           TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,LBRC,RBRC, BSLASH,
+              IJ,   A,   S,   D,   F,   G,   H,   J,   K,   L,SCLN,QUOT,     ENTER,
+              LSFT,   Z,   X,   C,   V,   B,   N,   M,COMM, DOT,SLSH,         RSFT,
+         LCTL, LALT, LGUI,             SPACEFN           , RGUI, RALT, RCTL,  MAC),
 
-  [_FN] = LAYOUT_all(
- LALT(KC_GRAVE),   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_NO,KC_DEL,
-        M_SWTCH,   _______,   KC_UP, _______, _______, _______, _______, KC_HOME,   KC_UP,  KC_END, _______, _______, _______,     _______,
-        _______,     KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,            _______,
-        _______, KC_NO,_______, _______, _______, _______,  KC_SPC, KC_PGDN, _______, _______, _______, _______, KC_NO,   _______,   KC_NO,
-        _______, _______, _______,                    KC_NO, _______, KC_NO,                    _______, _______, KC_NO,_______,   _______),
+  [_SPACEFN_FUNCTIONS] = LAYOUT_60_ansi_kc(
+         GRV,  F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10, F11, F12,      DEL,
+        SWITCHR,  _,  UP,   _,   _,   _,   _, HOME, UP, END,   _,   _,   _,      _,
+               _,LEFT,DOWN,RGHT,    _,   _,PGUP,LEFT,DOWN,RGHT,   _,    _,       _,
+                 _,   _,   _,   _,   _, SPC,PGDN,   _,   _,   _,   _,            _,
+            _,    _,    _,                _              ,    _,    _,    _,    _),
 
-  [_MC] = LAYOUT_all(
-        _______, BR_DOWN,   BR_UP, M_MCRTL, M_AWNDS, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,_______,
-        _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,     _______,
-        MO(_KB),     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______,
-        _______, KC_NO,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO,   M_ITERM,   KC_NO,
-        _______, _______, _______,                    KC_NO, _______, KC_NO,                    _______, _______, KC_NO,_______,   KC_TRNS),
+  [_MACOS_FUNCTIONS] = LAYOUT_60_ansi_kc(
+        _,   BRDN,BRUP,MCTL,AWND,   _,   _,MPRV,MPLY,MNXT,MUTE,VOLD,VOLU,        _,
+             _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,      _,
+            KCFG,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,         _,
+                 _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,         TERM,
+            _,    _,    _,                _              ,    _,    _,    _,    _),
 
-  [_IJ] = LAYOUT_all(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO,_______,
-        _______,   _______, _______, _______, M_RNAME, _______, _______, M_USAGE, _______, _______, M_RPROP, _______, _______,     _______,
-        _______,     M_RTYAL, _______, M_ADBGR, _______, _______, _______, _______, _______, _______, _______, _______,            _______,
-        _______, KC_NO,_______, _______, _______, M_RVARB, _______, _______, M_RFUNC, _______, _______, _______, KC_NO,   _______,   KC_NO,
-        _______, _______, _______,                    KC_NO, _______, KC_NO,                    _______, _______, KC_NO,_______,   KC_TRNS),
+  [_INTELLIJ] = LAYOUT_60_ansi_kc(
+           _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,        _,
+             _,   _,   _,   _,RNME,   _,   _,USGE,   _,   _,RPRP,   _,   _,      _,
+               _,RTAS,   _,ADBR,   _,   _,   _,   _,   _,   _,   _,   _,         _,
+                 _,   _,   _,   _,RVAR,   _,   _,RFUN,   _,   _,   _,            _,
+            _,    _,    _,                _              ,    _,    _,    _,    _),
 
-  [_GM] = LAYOUT_all(
-        KC_GESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,  KC_EQL, KC_NO,KC_BSPC,
-        KC_TAB,       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_RBRC,     KC_BSLS,
-        MO(_FN2),       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,            KC_ENTER,
-        KC_LSFT,    KC_NO,KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_NO,   KC_RSFT,   KC_NO,
-        KC_LCTL, KC_LALT, KC_LGUI,                    KC_NO,  KC_SPC, KC_NO,                    KC_RGUI, KC_RALT, KC_NO,KC_RCTL,   MO(_MS)),
+  [_GAMING] = LAYOUT_60_ansi_kc(
+        GESC,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0,MINS, EQL,     BSPC,
+           TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,LBRC,RBRC,   BSLS,
+            FUN2,   A,   S,   D,   F,   G,   H,   J,   K,   L,SCLN,QUOT,     ENTER,
+              LSFT,   Z,   X,   C,   V,   B,   N,   M,COMM, DOT,SLSH,         RSFT,
+         LCTL, LALT, LGUI,               SPC             , RGUI, RALT, RCTL, MCST),
 
-  [_FN2] = LAYOUT_all(
- LALT(KC_GRAVE),   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_NO,KC_DEL,
-        M_SWTCH,   _______,   KC_UP, _______, _______, _______, _______, KC_HOME,   KC_UP,  KC_END, _______, _______, _______,     _______,
-        KC_TRNS,     KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,            _______,
-        _______, KC_NO,_______, _______, _______, _______,  KC_SPC, KC_PGDN, _______, _______, _______, _______, KC_NO,   _______,   KC_NO,
-        _______, _______, _______,                    KC_NO, _______, KC_NO,                    _______, _______, KC_NO,_______,   KC_TRNS),
+  [_GAMING_FUNCTIONS] = LAYOUT_60_ansi_kc(
+         GRV,  F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10, F11, F12,      DEL,
+        SWITCHR,  _,   UP,   _,   _,   _,   _,HOME,  UP, END,   _,   _,   _,     _,
+               _,LEFT,DOWN,RGHT,   _,   _,PGUP,LEFT,DOWN,RGHT,   _,   _,         _,
+                 _,   _,   _,   _,   _, SPC,PGDN,   _,   _,   _,   _,            _,
+            _,    _,    _,                _              ,    _,    _,    _,    _),
 
-  [_MS] = LAYOUT_all(
-        _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,KC_DEL,
-        _______,   _______, _______, _______, _______, _______, _______, KC_HOME,   KC_UP,  KC_END, _______, _______, _______,     _______,
-        MO(_KB),     _______, _______, _______, _______, _______, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,            _______,
-        _______, KC_NO,_______, _______, _______, _______, KC_SPC, KC_PGDN, _______, _______, _______, _______, KC_NO,    _______,   KC_NO,
-        _______, _______, _______,                    KC_NO, _______, KC_NO,                    _______, _______, KC_NO,_______,   KC_TRNS),
+  [_GAMING_MEDIA] = LAYOUT_60_ansi_kc(
+           _,   _,   _,   _,   _,   _,   _,MPRV,MPLY,MNXT,MUTE,VOLD,VOLU,     DEL,
+             _,   _,   _,   _,   _,   _,   _,HOME,  UP, END,   _,   _,   _,     _,
+            KCFG,   _,   _,   _,   _,   _,PGUP,LEFT,DOWN,RGHT,   _,   _,        _,
+                 _,   _,   _,   _,   _, SPC,PGDN,   _,   _,   _,   _,           _,
+            _,    _,    _,                _              ,    _,    _,    _,    _),
 
-  [_KB] = LAYOUT_all(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO,RESET,
-        _______,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______,     _______,
-        KC_TRNS,     TO(_BS), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______,
-        _______, KC_NO,TO(_GM), _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO,   _______,   KC_NO,
-        _______, _______, _______,                    KC_NO, _______, KC_NO,                    _______, _______, KC_NO,_______,   KC_TRNS)
+  [_KEYBOARD_CONFIG] = LAYOUT_60_ansi_kc(
+           _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,    RESET,
+             _,CTOG,CMOD,CHUI,CHUD,CSAI,CSAD,CVAI,CVAD,   _,   _,   _,   _,      _,
+               _,BASE,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,         _,
+                 _,GAME,   _,   _,   _,   _,   _,   _,   _,   _,   _,            _,
+            _,    _,    _,                _              ,    _,    _,    _,    _),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     if (record->event.pressed) {
         switch(id) {
-            case 0:
-                return MACRO(D(LCTL), T(UP), U(LCTL), END); // macOS: mission control
-            case 1:
-                return MACRO(D(LCTL), T(DOWN), U(LCTL), END); // macOS: App Windows
-            case 2:
-                return MACRO(D(LGUI), T(GRAVE), U(LGUI), END); // macOS: Switch App Windows
-            case 3:
-                return MACRO(D(RALT), T(SLASH), U(RALT), END); // macOS: Remap for iTerm2 Hotkey
-            case 100:
-                return MACRO(D(LALT), D(LSHIFT), T(F5), U(LSHIFT), U(LALT), END); // IntelliJ: Attach to process...
-            case 101:
-                return MACRO(D(LSHIFT), T(F6), U(LSHIFT), END); // IntelliJ: Refactor Rename
-            case 102:
-                return MACRO(D(LALT), T(F7), U(LALT), END); // IntelliJ: Usage
-            case 103:
-                return MACRO(D(LALT), D(LGUI), T(V), U(LGUI), U(LALT), END); // IntelliJ: Refactor Variable
-            case 104:
-                return MACRO(D(LALT), D(LGUI), T(P), U(LGUI), U(LALT), END); // IntelliJ: Refactor Property
-            case 105:
-                return MACRO(D(LALT), D(LSHIFT), D(LGUI), T(M), U(LGUI), U(LSHIFT), U(LALT), END); // IntelliJ: Refactor Function
-            case 106:
-                return MACRO(D(LALT), D(LSHIFT), D(LGUI), T(A), U(LGUI), U(LSHIFT), U(LALT), END); // IntelliJ: Refactor Type Alias
+            case macos_mission_control:
+                return MACRO(D(LCTL), T(UP), U(LCTL), END);
+            case macos_app_windows:
+                return MACRO(D(LCTL), T(DOWN), U(LCTL), END);
+            case macos_app_switcher:
+                return MACRO(D(LGUI), T(GRAVE), U(LGUI), END);
+            case macos_iterm2_hotkey:
+                return MACRO(D(RALT), T(SLASH), U(RALT), END);
+            case intellij_attach_debugger:
+                return MACRO(D(LALT), D(LSHIFT), T(F5), U(LSHIFT), U(LALT), END);
+            case intellij_refactor_rename:
+                return MACRO(D(LSHIFT), T(F6), U(LSHIFT), END);
+            case intellij_usage:
+                return MACRO(D(LALT), T(F7), U(LALT), END);
+            case intellij_refactor_variable:
+                return MACRO(D(LALT), D(LGUI), T(V), U(LGUI), U(LALT), END);
+            case intellij_refactor_property:
+                return MACRO(D(LALT), D(LGUI), T(P), U(LGUI), U(LALT), END);
+            case intellij_refactor_function:
+                return MACRO(D(LALT), D(LSHIFT), D(LGUI), T(M), U(LGUI), U(LSHIFT), U(LALT), END);
+            case intellij_refactor_type_alias:
+                return MACRO(D(LALT), D(LSHIFT), D(LGUI), T(A), U(LGUI), U(LSHIFT), U(LALT), END);
         }
     }
     return MACRO_NONE;
