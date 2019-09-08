@@ -128,37 +128,59 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false; // Skip all further processing of this key
     case KC_SWITCHR:
-      SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_GRAVE)SS_UP(X_LGUI));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_GRAVE)SS_UP(X_LGUI));
+      }
       break;
     case KC_AWND:
-      SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_DOWN)SS_UP(X_LCTRL));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_DOWN)SS_UP(X_LCTRL));
+      }
       break;
     case KC_TERM:
-      SEND_STRING(SS_DOWN(X_RALT)SS_TAP(X_SLASH)SS_UP(X_RALT));
+      if (record->event.pressed) {
+        SEND_STRING(SS_RALT("/"));
+      }
       break;
     case KC_MCTL:
-      SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_UP)SS_UP(X_LCTRL));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_UP)SS_UP(X_LCTRL));
+      }
       break;
     case KC_ADBR:
-      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LSHIFT)SS_TAP(X_F5)SS_UP(X_LSHIFT)SS_UP(X_LALT));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LSHIFT)SS_TAP(X_F5)SS_UP(X_LSHIFT)SS_UP(X_LALT));
+      }
       break;
     case KC_RFUN:
-      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_M)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_UP(X_LALT));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)"m"SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_UP(X_LALT));
+      }
       break;
     case KC_RNME:
-      SEND_STRING(SS_DOWN(X_LSHIFT)SS_TAP(X_F6)SS_UP(X_LSHIFT));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LSHIFT)SS_TAP(X_F6)SS_UP(X_LSHIFT));
+      }
       break;
     case KC_RPRP:
-      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI)SS_TAP(X_P)SS_UP(X_LGUI)SS_UP(X_LSHIFT));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI)"p"SS_UP(X_LGUI)SS_UP(X_LSHIFT));
+      }
       break;
     case KC_RTAS:
-      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_A)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_UP(X_LALT));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)"a"SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_UP(X_LALT));
+      }
       break;
     case KC_RVAR:
-      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI)SS_TAP(X_V)SS_UP(X_LGUI)SS_UP(X_LALT));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI)"v"SS_UP(X_LGUI)SS_UP(X_LALT));
+      }
       break;
     case KC_USGE:
-      SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_F7)SS_UP(X_LALT));
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_F7)SS_UP(X_LALT));
+      }
       break;
   }
   return true; // Process all other keycodes normally
