@@ -12,45 +12,30 @@ enum dz60_layers {
 };
 
 enum my_keycodes {
-  BR_UP = SAFE_RANGE,
-  BR_DOWN
-};
-
-enum macros {
-    macos_app_switcher,
-    macos_app_windows,
-    macos_iterm2_hotkey,
-    macos_mission_control,
-    intellij_attach_debugger,
-    intellij_refactor_rename,
-    intellij_refactor_property,
-    intellij_refactor_type_alias,
-    intellij_refactor_variable,
-    intellij_refactor_function,
-    intellij_usage
+  BR_UP = SAFE_RANGE, // macOS: Brightness up
+  BR_DOWN, // macOS: Brightness down
+  KC_SWITCHR, // macOS: App Window Switcher
+  KC_AWND, //  macOS: App Windows
+  KC_TERM, // macOS: iTerm hotkey
+  KC_MCTL, // macOS: Mission Control
+  KC_ADBR, // IntelliJ: Attach debugger
+  KC_RFUN, // IntelliJ: Refactor function
+  KC_RNME, // IntelliJ: Refactor rename
+  KC_RPRP, // IntelliJ: Refactor property
+  KC_RTAS, // IntelliJ: Refactor type alias
+  KC_RVAR, // IntelliJ: Refactor variable
+  KC_USGE // IntelliJ: Find usage
 };
 
 #define KC_IJ MO(_INTELLIJ)
 #define KC_SPACEFN LT(_SPACEFN_FUNCTIONS, KC_SPC)
 #define KC_MAC MO(_MACOS_FUNCTIONS)
 
-#define KC_SWITCHR M(macos_app_switcher)
 #define KC__ KC_TRNS
 
 #define KC_BRDN BR_DOWN
 #define KC_BRUP BR_UP
-#define KC_MCTL M(macos_mission_control)
-#define KC_AWND M(macos_app_windows)
 #define KC_KCFG MO(_KEYBOARD_CONFIG)
-#define KC_TERM M(macos_iterm2_hotkey)
-
-#define KC_RNME M(intellij_refactor_rename)
-#define KC_USGE M(intellij_usage)
-#define KC_RPRP M(intellij_refactor_property)
-#define KC_RTAS M(intellij_refactor_type_alias)
-#define KC_ADBR M(intellij_attach_debugger)
-#define KC_RVAR M(intellij_refactor_variable)
-#define KC_RFUN M(intellij_refactor_function)
 
 #define KC_FUN2 MO(_GAMING_FUNCTIONS)
 #define KC_MCST MO(_GAMING_MEDIA)
@@ -125,36 +110,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _,    _,    _,                _              ,    _,    _,    _,    _),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    if (record->event.pressed) {
-        switch(id) {
-            case macos_mission_control:
-                return MACRO(D(LCTL), T(UP), U(LCTL), END);
-            case macos_app_windows:
-                return MACRO(D(LCTL), T(DOWN), U(LCTL), END);
-            case macos_app_switcher:
-                return MACRO(D(LGUI), T(GRAVE), U(LGUI), END);
-            case macos_iterm2_hotkey:
-                return MACRO(D(RALT), T(SLASH), U(RALT), END);
-            case intellij_attach_debugger:
-                return MACRO(D(LALT), D(LSHIFT), T(F5), U(LSHIFT), U(LALT), END);
-            case intellij_refactor_rename:
-                return MACRO(D(LSHIFT), T(F6), U(LSHIFT), END);
-            case intellij_usage:
-                return MACRO(D(LALT), T(F7), U(LALT), END);
-            case intellij_refactor_variable:
-                return MACRO(D(LALT), D(LGUI), T(V), U(LGUI), U(LALT), END);
-            case intellij_refactor_property:
-                return MACRO(D(LALT), D(LGUI), T(P), U(LGUI), U(LALT), END);
-            case intellij_refactor_function:
-                return MACRO(D(LALT), D(LSHIFT), D(LGUI), T(M), U(LGUI), U(LSHIFT), U(LALT), END);
-            case intellij_refactor_type_alias:
-                return MACRO(D(LALT), D(LSHIFT), D(LGUI), T(A), U(LGUI), U(LSHIFT), U(LALT), END);
-        }
-    }
-    return MACRO_NONE;
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   uint8_t key;
   switch (keycode) {
@@ -172,7 +127,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           send_keyboard_report();
       }
       return false; // Skip all further processing of this key
-    default:
-      return true; // Process all other keycodes normally
+    case KC_SWITCHR:
+      SEND_STRING(SS_DOWN(X_LGUI)SS_TAP(X_GRAVE)SS_UP(X_LGUI));
+      break;
+    case KC_AWND:
+      SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_DOWN)SS_UP(X_LCTRL));
+      break;
+    case KC_TERM:
+      SEND_STRING(SS_DOWN(X_RALT)SS_TAP(X_SLASH)SS_UP(X_RALT));
+      break;
+    case KC_MCTL:
+      SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_UP)SS_UP(X_LCTRL));
+      break;
+    case KC_ADBR:
+      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LSHIFT)SS_TAP(X_F5)SS_UP(X_LSHIFT)SS_UP(X_LALT));
+      break;
+    case KC_RFUN:
+      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_M)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_UP(X_LALT));
+      break;
+    case KC_RNME:
+      SEND_STRING(SS_DOWN(X_LSHIFT)SS_TAP(X_F6)SS_UP(X_LSHIFT));
+      break;
+    case KC_RPRP:
+      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI)SS_TAP(X_P)SS_UP(X_LGUI)SS_UP(X_LSHIFT));
+      break;
+    case KC_RTAS:
+      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_A)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_UP(X_LALT));
+      break;
+    case KC_RVAR:
+      SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI)SS_TAP(X_V)SS_UP(X_LGUI)SS_UP(X_LALT));
+      break;
+    case KC_USGE:
+      SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_F7)SS_UP(X_LALT));
+      break;
   }
+  return true; // Process all other keycodes normally
 }
