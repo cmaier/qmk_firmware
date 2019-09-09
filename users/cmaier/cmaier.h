@@ -18,8 +18,9 @@
 
 #include "quantum.h"
 #include "macros.h"
-#include "macros_intellij.h"
+#include "macros_keyboard.h"
 #include "macros_macos.h"
+#include "macros_intellij.h"
 
 enum dz60_layers {
   _DEFAULT,
@@ -35,11 +36,11 @@ enum dz60_layers {
 #define KC_BASE  TO(_DEFAULT)
 #define KC_SFN   LT(_SPACEFN_FUNCTIONS, KC_SPC)
 #define KC_MAC   MO(_MACOS_FUNCTIONS)
-#define KC_KCFG  MO(_KEYBOARD_CONFIG)
 #define KC_INTJ  MO(_INTELLIJ)
 #define KC_GAME  TO(_GAMING)
 #define KC_GFUN  MO(_GAMING_FUNCTIONS)
 #define KC_GMMA  MO(_GAMING_MEDIA)
+#define KC_KCFG  MO(_KEYBOARD_CONFIG)
 
 #define KC__      KC_TRNS
 #define KC_RESET  RESET

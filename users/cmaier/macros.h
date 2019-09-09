@@ -16,7 +16,8 @@
 */
 
 enum custom_keycodes {
-  KC_MAKE = SAFE_RANGE,
+  KC_MAKE = SAFE_RANGE,  // kdb: Compiles firmware
+  KC_VRSN,               // kbd: QMK version
   KC_BRDN,               // macOS: Brightness up
   KC_BRUP,               // macOS: Brightness down
   KC_SWTR,               // macOS: App Window Switcher
@@ -32,5 +33,5 @@ enum custom_keycodes {
   KC_RVAR,               // IntelliJ: Refactor variable
   KC_USGE,               // IntelliJ: Find usage
 
-  NEW_SAFE_RANGE         // use "NEWPLACEHOLDER for keymap specific codes
+  NEW_SAFE_RANGE         // use "NEW_SAFE_RANGE" for keymap specific codes
 };

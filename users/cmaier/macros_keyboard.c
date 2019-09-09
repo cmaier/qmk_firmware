@@ -14,37 +14,23 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "cmaier.h"
+#include "macros_keyboard.h"
+#include "macros.h"
+#include "version.h"
 
-__attribute__ ((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+void process_record_keyboard(uint16_t keycode, keyrecord_t *record) {
+  bool isPressed = record->event.pressed;
   switch (keycode) {
     case KC_MAKE:
+      if (isPressed) {
+        send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP ":dfu" SS_TAP(X_ENTER)), MACRO_TIMER);
+      }
+      break;
+
     case KC_VRSN:
-      process_record_keyboard(keycode, record);
-
-    case KC_BRDN:
-    case KC_BRUP:
-    case KC_SWTR:
-    case KC_AWND:
-    case KC_TERM:
-    case KC_MCTL:
-      return process_record_macos(keycode, record);
-
-    case KC_ADBR:
-    case KC_RFUN:
-    case KC_RNME:
-    case KC_RPRP:
-    case KC_RTAS:
-    case KC_RVAR:
-    case KC_USGE:
-      process_record_intellij(keycode, record);
+      if (isPressed) {
+        send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), MACRO_TIMER);
+      }
       break;
   }
-
-  return process_record_keymap(keycode, record);
 }
