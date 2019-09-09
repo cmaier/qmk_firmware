@@ -16,13 +16,4 @@
 */
 #include "quantum.h"
 
-enum macos_keycodes {
-  KC_BRDN = 100, // macOS: Brightness up
-  KC_BRUP, // macOS: Brightness down
-  KC_SWTR, // macOS: App Window Switcher
-  KC_AWND, //  macOS: App Windows
-  KC_TERM, // macOS: iTerm hotkey
-  KC_MCTL // macOS: Mission Control
-};
-
 bool process_record_macos(uint16_t keycode, keyrecord_t *record);

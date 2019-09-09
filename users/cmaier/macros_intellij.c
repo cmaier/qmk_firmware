@@ -15,6 +15,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "macros_intellij.h"
+#include "macros.h"
 
 void process_record_intellij(uint16_t keycode, keyrecord_t *record) {
   bool isPressed = record->event.pressed;

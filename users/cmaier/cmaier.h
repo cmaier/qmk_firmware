@@ -17,6 +17,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "macros.h"
 #include "macros_intellij.h"
 #include "macros_macos.h"
 

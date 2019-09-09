@@ -16,14 +16,4 @@
 */
 #include "quantum.h"
 
-enum intellij_keycodes {
-  KC_ADBR = 200, // IntelliJ: Attach debugger
-  KC_RFUN, // IntelliJ: Refactor function
-  KC_RNME, // IntelliJ: Refactor rename
-  KC_RPRP, // IntelliJ: Refactor property
-  KC_RTAS, // IntelliJ: Refactor type alias
-  KC_RVAR, // IntelliJ: Refactor variable
-  KC_USGE // IntelliJ: Find usage
-};
-
 void process_record_intellij(uint16_t keycode, keyrecord_t *record);

@@ -15,6 +15,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "macros_macos.h"
+#include "macros.h"
 
 bool process_record_macos(uint16_t keycode, keyrecord_t *record) {
   bool isPressed = record->event.pressed;
