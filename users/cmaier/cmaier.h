@@ -40,7 +40,6 @@ enum dz60_layers {
 #define KC_GAME  TO(_GAMING)
 #define KC_GFUN  MO(_GAMING_FUNCTIONS)
 #define KC_GMMA  MO(_GAMING_MEDIA)
-#define KC_KCFG  MO(_KEYBOARD_CONFIG)
 
 #define KC__      KC_TRNS
 #define KC_RESET  RESET

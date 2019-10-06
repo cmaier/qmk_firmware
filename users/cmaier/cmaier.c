@@ -49,3 +49,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return process_record_keymap(keycode, record);
 }
+
+enum combo_events {
+  GUI_CONFIG,
+};
+
+const uint16_t PROGMEM gui_combo[] = {KC_LGUI, KC_RGUI, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [GUI_CONFIG] = COMBO_ACTION(gui_combo),
+};
+
+void process_combo_event(uint8_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case GUI_CONFIG:
+      if (pressed) {
+        layer_on(_KEYBOARD_CONFIG);
+      } else {
+        layer_off(_KEYBOARD_CONFIG);
+      }
+      break;
+  }
+}

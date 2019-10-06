@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MACOS_FUNCTIONS] = LAYOUT_60_ansi_kc(
            _,BRDN,BRUP,MCTL,AWND,   _,   _,MPRV,MPLY,MNXT,MUTE,VOLD,VOLU,        _,
              _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,      _,
-            KCFG,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,         _,
+               _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,         _,
                  _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,         TERM,
             _,    _,    _,                _              ,    _,    _,    _,    _),
 
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_GAMING_MEDIA] = LAYOUT_60_ansi_kc(
            _,   _,   _,   _,   _,   _,   _,MPRV,MPLY,MNXT,MUTE,VOLD,VOLU,     DEL,
              _,   _,   _,   _,   _,   _,   _,HOME,  UP, END,   _,   _,   _,     _,
-            KCFG,   _,   _,   _,   _,   _,PGUP,LEFT,DOWN,RGHT,   _,   _,        _,
+               _,   _,   _,   _,   _,   _,PGUP,LEFT,DOWN,RGHT,   _,   _,        _,
                  _,   _,   _,   _,   _, SPC,PGDN,   _,   _,   _,   _,           _,
             _,    _,    _,                _              ,    _,    _,    _,    _),
 
