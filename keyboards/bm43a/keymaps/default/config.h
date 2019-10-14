@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2019 mechmerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,18 +16,4 @@
 
 #pragma once
 
-#include "config_common.h"
-
-// wiring of each half
-#define MATRIX_ROW_PINS { F5 }
-#define MATRIX_COL_PINS { F7 }
-#define SPLIT_HAND_PIN F0
-#define SOFT_SERIAL_PIN D1
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
-// teensy has vbus detection issues - use usb detection instead
-#define SPLIT_USB_DETECT
-// required for teensy slave otherwise it "locks up" during startup
-#define NO_USB_STARTUP_CHECK
+// place overrides here
