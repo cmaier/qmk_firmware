@@ -51,18 +51,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 enum combo_events {
-  GUI_CONFIG,
+  KBD_CONFIG,
 };
 
-const uint16_t PROGMEM gui_combo[] = {KC_LGUI, KC_RGUI, COMBO_END};
+const uint16_t PROGMEM kbd_combo[] = {KC_RSHIFT, KC_LSHIFT, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-  [GUI_CONFIG] = COMBO_ACTION(gui_combo),
+  [KBD_CONFIG] = COMBO_ACTION(kbd_combo),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
-    case GUI_CONFIG:
+    case KBD_CONFIG:
       if (pressed) {
         layer_on(_KEYBOARD_CONFIG);
       } else {
