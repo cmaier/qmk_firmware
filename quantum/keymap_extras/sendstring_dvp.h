@@ -1,4 +1,4 @@
-/* Copyright 2019 Rys Sommefeldt
+/* Copyright 2020
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for UK layouts
+// Sendstring lookup tables for Programmer Dvorak layouts
 
 #pragma once
 
-#include "keymap_uk.h"
+#include "keymap_dvp.h"
 #include "quantum.h"
 
 // clang-format off
@@ -29,18 +29,18 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    KCLUT_ENTRY(0, 1, 1, 0, 1, 1, 1, 0),
-    KCLUT_ENTRY(1, 1, 1, 1, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 1, 0, 0, 1, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 1, 0, 1, 0, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 0, 1, 0, 1, 1),
+    KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 1, 1),
+    KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0)
+    KCLUT_ENTRY(0, 0, 0, 0, 1, 0, 1, 0)
 };
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
@@ -54,27 +54,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  UK_1,    UK_2,    UK_HASH, UK_4,    UK_5,    UK_7,    UK_QUOT,
+    KC_SPC,  DP_EXLM, DP_QUOT, DP_HASH, DP_DLR,  DP_AMPR, DP_AMPR, DP_QUOT,
     // (     )        *        +        ,        -        .        /
-    UK_9,    UK_0,    UK_8,    UK_EQL,  UK_COMM, UK_MINS, UK_DOT,  UK_SLSH,
+    DP_LPRN, DP_RPRN, DP_ASTR, DP_PLUS, DP_COMM, DP_MINS, DP_DOT,  DP_SLSH,
     // 0     1        2        3        4        5        6        7
-    UK_0,    UK_1,    UK_2,    UK_3,    UK_4,    UK_5,    UK_6,    UK_7,
+    DP_ASTR, DP_LPRN, DP_RPRN, DP_RCBR, DP_PLUS, DP_LCBR, DP_RBRC, DP_LBRC,
     // 8     9        :        ;        <        =        >        ?
-    UK_8,    UK_9,    UK_SCLN, UK_SCLN, UK_COMM, UK_EQL,  UK_DOT,  UK_SLSH,
+    DP_EXLM, DP_EQL,  DP_SCLN, DP_SCLN, DP_COMM, DP_EQL,  DP_DOT,  DP_SLSH,
     // @     A        B        C        D        E        F        G
-    UK_QUOT, UK_A,    UK_B,    UK_C,    UK_D,    UK_E,    UK_F,    UK_G,
+    DP_AT,   DP_A,    DP_B,    DP_C,    DP_D,    DP_E,    DP_F,    DP_G,
     // H     I        J        K        L        M        N        O
-    UK_H,    UK_I,    UK_J,    UK_K,    UK_L,    UK_M,    UK_N,    UK_O,
+    DP_H,    DP_I,    DP_J,    DP_K,    DP_L,    DP_M,    DP_N,    DP_O,
     // P     Q        R        S        T        U        V        W
-    UK_P,    UK_Q,    UK_R,    UK_S,    UK_T,    UK_U,    UK_V,    UK_W,
+    DP_P,    DP_Q,    DP_R,    DP_S,    DP_T,    DP_U,    DP_V,    DP_W,
     // X     Y        Z        [        \        ]        ^        _
-    UK_X,    UK_Y,    UK_Z,    UK_LBRC, UK_BSLS, UK_RBRC, UK_6,    UK_MINS,
+    DP_X,    DP_Y,    DP_Z,    DP_LBRC, DP_BSLS, DP_RBRC, DP_AT,   DP_MINS,
     // `     a        b        c        d        e        f        g
-    UK_GRV,  UK_A,    UK_B,    UK_C,    UK_D,    UK_E,    UK_F,    UK_G,
+    DP_HASH, DP_A,    DP_B,    DP_C,    DP_D,    DP_E,    DP_F,    DP_G,
     // h     i        j        k        l        m        n        o
-    UK_H,    UK_I,    UK_J,    UK_K,    UK_L,    UK_M,    UK_N,    UK_O,
+    DP_H,    DP_I,    DP_J,    DP_K,    DP_L,    DP_M,    DP_N,    DP_O,
     // p     q        r        s        t        u        v        w
-    UK_P,    UK_Q,    UK_R,    UK_S,    UK_T,    UK_U,    UK_V,    UK_W,
+    DP_P,    DP_Q,    DP_R,    DP_S,    DP_T,    DP_U,    DP_V,    DP_W,
     // x     y        z        {        |        }        ~        DEL
-    UK_X,    UK_Y,    UK_Z,    UK_LBRC, UK_BSLS, UK_RBRC, UK_HASH, KC_DEL
+    DP_X,    DP_Y,    DP_Z,    DP_LCBR, DP_BSLS, DP_RCBR, DP_DLR,  KC_DEL
 };
