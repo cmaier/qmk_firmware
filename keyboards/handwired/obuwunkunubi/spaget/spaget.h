@@ -1,4 +1,4 @@
-/* Copyright 2019 Spaceman
+/* Copyright 2020 obuwunkunubi
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +17,31 @@
 
 #include "quantum.h"
 
+/* This a shortcut to help you visually see your layout.
+ *
+ * The first section contains all of the arguments representing the physical
+ * layout of the board and position of the keys.
+ *
+ * The second converts the arguments into a two-dimensional array which
+ * represents the switch matrix.
+ */
+
+// readability
+#define XXX KC_NO
+
 #define LAYOUT( \
-  K00,  \
-  K01  \
+    K23,           K43, \
+	K00, K01, K02, K03, \
+	K10, K11, K12, K13, \
+	K20, K21, K22,      \
+	K30, K31, K32, K33, \
+	K40, K41, K42,      \
+	     K51, K52, K53  \
 ) { \
-  { K00 }, \
-  { K01 } \
+	{ K00, K01, K02, K03 }, \
+	{ K10, K11, K12, K13 }, \
+	{ K20, K21, K22, K23 }, \
+	{ K30, K31, K32, K33 }, \
+	{ K40, K41, K42, K43 }, \
+	{ XXX, K51, K52, K53 }  \
 }
