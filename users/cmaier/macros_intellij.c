@@ -56,6 +56,12 @@ void process_record_intellij(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    case KC_INLN:
+      if (isPressed) {
+        SEND_STRING(SS_DOWN(X_LALT)SS_DOWN(X_LGUI)"n"SS_UP(X_LGUI)SS_UP(X_LALT));
+      }
+      break;
+
     case KC_USGE:
       if (isPressed) {
         SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_F7)SS_UP(X_LALT));

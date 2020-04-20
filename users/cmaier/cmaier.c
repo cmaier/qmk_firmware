@@ -42,6 +42,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_RPRP:
     case KC_RTAS:
     case KC_RVAR:
+    case KC_INLN:
     case KC_USGE:
       process_record_intellij(keycode, record);
       break;

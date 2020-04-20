@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_INTELLIJ] = LAYOUT_60_ansi_kc(
            _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,        _,
-             _,   _,   _,   _,RNME,   _,   _,USGE,   _,   _,RPRP,   _,   _,      _,
+             _,   _,   _,   _,RNME,   _,   _,USGE,INLN,   _,RPRP,   _,   _,      _,
                _,RTAS,   _,ADBR,   _,   _,   _,   _,   _,   _,   _,   _,         _,
                  _,   _,   _,   _,RVAR,   _,   _,RFUN,   _,   _,   _,            _,
             _,    _,    _,                _              ,    _,    _,    _,    _),

@@ -33,6 +33,7 @@ enum custom_keycodes {
   KC_RPRP,               // IntelliJ: Refactor property
   KC_RTAS,               // IntelliJ: Refactor type alias
   KC_RVAR,               // IntelliJ: Refactor variable
+  KC_INLN,               // IntelliJ: Refactor inline
   KC_USGE,               // IntelliJ: Find usage
 
   NEW_SAFE_RANGE         // use "NEW_SAFE_RANGE" for keymap specific codes
