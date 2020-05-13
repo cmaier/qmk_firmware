@@ -26,6 +26,9 @@
 #    include "hal.h"
 #    include "eeprom_stm32.h"
 #endif
+#ifdef PROTOCOL_LUFA
+#    include "lufa.h"
+#endif
 #include "wait.h"
 #include "progmem.h"
 #include "timer.h"
@@ -758,6 +761,30 @@ void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
 }
 #endif /* RGBLIGHT_SPLIT */
 
+#ifdef PROTOCOL_LUFA
+void rgblight_usb_task(void) {
+    static uint8_t last_usb_devicestate = -1;
+
+    if (USB_DeviceState != last_usb_devicestate) {
+        last_usb_devicestate = USB_DeviceState;
+
+        switch (USB_DeviceState) {
+            case DEVICE_STATE_Configured:
+                // if rgb showed a solid, non-animated, color when the cord was
+                // removed, since it doesn't need any timers, it won't turn on
+                // when the cord is plugged back in. we'll fix that here.
+                rgblight_restore_from_eeprom();
+                break;
+            default:
+                // rgb already turns off when the cord is removed, since it
+                // loses its required 5v, but qmk thinks it's still running.
+                // let's just stop that.
+                rgblight_disable_noeeprom();
+        }
+    }
+}
+#endif
+
 #ifdef RGBLIGHT_USE_TIMER
 
 typedef void (*effect_func_t)(animation_status_t *anim);
@@ -824,6 +851,10 @@ static void rgblight_effect_dummy(animation_status_t *anim) {
 }
 
 void rgblight_task(void) {
+#    ifdef PROTOCOL_LUFA
+    rgblight_usb_task();
+#    endif
+
     if (rgblight_status.timer_enabled) {
         effect_func_t effect_func   = rgblight_effect_dummy;
         uint16_t      interval_time = 2000;  // dummy interval
@@ -917,6 +948,14 @@ void rgblight_task(void) {
 #    endif
         }
     }
+}
+
+#else
+
+void rgblight_task(void) {
+#    ifdef PROTOCOL_LUFA
+    rgblight_usb_task();
+#    endif
 }
 
 #endif /* RGBLIGHT_USE_TIMER */
