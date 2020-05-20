@@ -11,6 +11,4 @@
 #define RGBLIGHT_SLEEP
 #endif
 
-#define RGBLIGH_EFFECT_STATIC_GRADIENT
-
 #endif
