@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_KEYBOARD_CONFIG] = LAYOUT_60_ansi_kc(
            _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,    RESET,
              _,CTOG,CMOD,CHUI,CHUD,CSAI,CSAD,CVAI,CVAD,   _,   _,   _,   _,      _,
-               _,BASE,   _,   _,   _,   _,   _,   _,   _,LORM,   _,   _,         _,
+               _,BASE,   _,   _,   _,   _,   _,   _,   _,   _,   _,   _,         _,
                  _,GAME,   _,   _,VRSN,   _,   _,MAKE,   _,   _,   _,            _,
             _,    _,    _,                _              ,    _,    _,    _,    _),
 };

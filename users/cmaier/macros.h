@@ -18,7 +18,6 @@
 enum custom_keycodes {
   KC_MAKE = SAFE_RANGE,  // kdb: Compiles firmware
   KC_VRSN,               // kbd: QMK version
-  KC_LORM,               // kdb: Lorem ipsum ...
 
   KC_BRDN,               // macOS: Brightness up
   KC_BRUP,               // macOS: Brightness down

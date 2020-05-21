@@ -25,7 +25,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_MAKE:
     case KC_VRSN:
-    case KC_LORM:
       process_record_keyboard(keycode, record);
 
     case KC_BRDN:

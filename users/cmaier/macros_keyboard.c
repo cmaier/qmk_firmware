@@ -32,11 +32,5 @@ void process_record_keyboard(uint16_t keycode, keyrecord_t *record) {
         send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), MACRO_TIMER);
       }
       break;
-
-    case KC_LORM:
-      if (isPressed) {
-        send_string_with_delay_P(PSTR("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."), MACRO_TIMER);
-      }
-      break;
   }
 }
