@@ -86,6 +86,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VIA_ENABLE
 #    include "via.h"
 #endif
+#ifdef BLUETOOTH_ENABLE
+#    include "bluetooth.h"
+#endif
 
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -265,6 +268,9 @@ void keyboard_init(void) {
 #ifdef POINTING_DEVICE_ENABLE
     pointing_device_init();
 #endif
+#ifdef BLUETOOTH_ENABLE
+    bluetooth_init();
+#endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
     eeconfig_update_keymap(keymap_config.raw);
@@ -401,6 +407,10 @@ MATRIX_LOOP_END:
     if (velocikey_enabled()) {
         velocikey_decelerate();
     }
+#endif
+
+#ifdef BLUETOOTH_ENABLE
+    bluetooth_task();
 #endif
 
     // update LED

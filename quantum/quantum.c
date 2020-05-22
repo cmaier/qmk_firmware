@@ -17,8 +17,9 @@
 #include <ctype.h>
 #include "quantum.h"
 
-#ifdef PROTOCOL_LUFA
+#ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
+#    include "bluetooth.h"
 #endif
 
 #ifdef BACKLIGHT_ENABLE
@@ -330,6 +331,9 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
             case OUT_BT:
                 set_output(OUTPUT_BLUETOOTH);
+                return false;
+            case BT_UNPAIR:
+                bluetooth_unpair();
                 return false;
 #endif
         }

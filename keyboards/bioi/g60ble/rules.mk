@@ -25,5 +25,7 @@ NKRO_ENABLE = yes          # USB Nkey Rollover - if this doesn't work, see here:
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no
 LTO_ENABLE = yes
+BLUETOOTH = AdafruitBLEUART
+# BLUETOOTH_BATTERY_ENABLE = yes
 
 LAYOUTS = 60_ansi 60_iso 60_hhkb 60_ansi_split_bs_rshift 60_tsangan_hhkb

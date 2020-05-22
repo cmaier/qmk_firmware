@@ -16,6 +16,10 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
 
  old mode number (before 0.6.117) to new mode name table
@@ -355,6 +359,7 @@ HSV     rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);
+void     rgblight_restore_from_eeprom(void);
 uint32_t rgblight_read_dword(void);
 void     rgblight_update_dword(uint32_t dword);
 uint32_t eeconfig_read_rgblight(void);
@@ -372,14 +377,14 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
 #    define EZ_RGB(val) rgblight_show_solid_color((val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF)
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b);
 
-#    ifdef RGBLIGHT_USE_TIMER
 void rgblight_task(void);
+
+#    ifdef RGBLIGHT_USE_TIMER
 void rgblight_timer_init(void);
 void rgblight_timer_enable(void);
 void rgblight_timer_disable(void);
 void rgblight_timer_toggle(void);
 #    else
-#        define rgblight_task()
 #        define rgblight_timer_init()
 #        define rgblight_timer_enable()
 #        define rgblight_timer_disable()
@@ -435,4 +440,9 @@ void rgblight_effect_twinkle(animation_status_t *anim);
 #    endif
 
 #endif  // #ifndef RGBLIGHT_H_DUMMY_DEFINE
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif  // RGBLIGHT_H
